@@ -1,69 +1,66 @@
-# DJS05 Project Brief: Building a Redux-Inspired Store for a Tally App
+# Tally App - Redux-Inspired State Management
 
-In this challenge, you will venture into the realm of state management by constructing a Redux-inspired store to manage the state of a simple Tally App. Your primary goal is to manage the app's state changes efficiently, focusing on core functionalities like incrementing, decrementing, and resetting a counter. Instead of rendering changes on the UI, you'll subscribe to state updates and log them to the console, highlighting the power of state management in applications.
+This project implements a basic Redux-inspired store to manage the state of a simple Tally App counter. The store supports core state management operations such as incrementing, decrementing, and resetting a counter. All state changes are logged to the console to illustrate state updates, making this an effective demonstration of state management without a UI.
 
-## Objective
-Create a minimalistic, Redux-inspired store to manage and log the state of a counting Tally App. Your implementation will not involve UI rendering; instead, it will use console logs to demonstrate state management effectively.
+## Features
 
-Observer Pattern resource from Refactoring Guru: https://refactoring.guru/design-patterns/observer
+- **State Management Functions**: 
+  - `getState()`: Retrieve the current state of the counter.
+  - `dispatch(action)`: Dispatch an action (e.g., `ADD`, `SUBTRACT`, `RESET`) to update the state.
+  - `subscribe(listener)`: Register a function to be called whenever the state changes.
+- **Actions Supported**: 
+  - `ADD`: Increments the counter by 1.
+  - `SUBTRACT`: Decrements the counter by 1.
+  - `RESET`: Resets the counter to 0.
 
-## User Stories (Gherkin Syntax)
-Your challenge will encompass the following scenarios, tested through your store's implementation:
+## How to Run
 
-### SCENARIO 1: Initial State Verification
-```
-GIVEN no interactions have been performed yet
-WHEN the “getState” method is run
-AND the result is logged to the console
-AND the browser console is open
-THEN the state should show a count of 0
-```
+1. **Clone the Repository**: Clone this project to your local machine.
 
-### SCENARIO 2: Incrementing the Counter
-```
-GIVEN no interactions have been performed yet
-WHEN an “ADD” action is dispatched
-AND another “ADD” action is dispatched
-AND the browser console is open
-THEN the state should show a count of 2
-```
+2. **Open the Project in VSCode**: 
+   - Open this project directory in Visual Studio Code.
 
-### SCENARIO 3: Decrementing the Counter
-```
-GIVEN the current count in the state is 2
-WHEN a “SUBTRACT” action is dispatched
-AND the browser console is open
-THEN the state should display a count of 1
-```
+3. **Open the Integrated Terminal**:
+   - In VSCode, open the terminal by navigating to `View` > `Terminal`, or use the shortcut:
+     - **Windows/Linux**: <kbd>Ctrl</kbd> + <kbd>`</kbd>
+     - **Mac**: <kbd>Cmd</kbd> + <kbd>`</kbd>
 
-### SCENARIO 4: Resetting the Counter
-```
-GIVEN the current count in the state is 1
-WHEN a “RESET” action is dispatched
-AND the browser console is open
-THEN the state should display a count of 0
-```
+4. **Run the Code**:
+   - Ensure you have Node.js installed. In the terminal, run:
+     ```bash
+     node store.js
+     ```
+   - You should see output in the terminal showing the state updates according to each scenario.
 
-## Requirements
-- **Implement a Global Store**: Create a Redux-inspired store that holds the state of the tally counter. The store should have the ability to dispatch actions and subscribe to state changes.
-- **State Management Functions**:
-  - **getState**: Returns the current state.
-  - **dispatch**: Takes an action (e.g., ADD, SUBTRACT, RESET) and updates the state accordingly.
-  - **subscribe**: Accepts a function that gets called whenever the state changes. This function should log the new state to the console.
-- **No UI Rendering**: This challenge focuses on state management without the complexity of UI rendering. All state changes should be observable through console logs.
-- **Functional Programming Principles**: Draw upon functional programming concepts as illustrated in the reference videos. While Redux is the inspiration, you're encouraged to apply these principles creatively in your implementation.
+## Scenarios Demonstrated
 
-## Submission Guidelines
-Your submission should consist of a JavaScript file(s) that encapsulate your Redux-inspired store and the logic for dispatching actions and subscribing to changes. Include a README.md file explaining:
-- How to run your code.
-- A brief overview of your approach.
-- Any challenges you faced and how you overcame them.
+The `store.js` file contains test scenarios, following Gherkin syntax, to validate the functionality:
 
-Ensure your code is well-commented and adheres to best practices for readability and maintainability.
+1. **Initial State Verification**:
+   - Logs the initial state, which should display `{ count: 0 }`.
 
-## Evaluation Criteria
-- **Correctness**: Your implementation should correctly handle the scenarios as outlined in the user stories.
-- **Code Quality**: Use of functional programming principles, clear naming conventions, and code organization.
-- **Documentation**: Clarity of your approach and reflections in the README.md.
+2. **Incrementing the Counter**:
+   - Dispatches the `ADD` action twice to increase `count` to 2, and logs each update.
 
-This challenge is an excellent opportunity to demonstrate your understanding of state management concepts and functional programming principles. Good luck!
+3. **Decrementing the Counter**:
+   - Dispatches the `SUBTRACT` action to decrease `count` by 1, updating `count` to 1.
+
+4. **Resetting the Counter**:
+   - Dispatches the `RESET` action to reset `count` back to 0.
+
+## Approach
+
+This project uses a minimalistic approach inspired by Redux, following the Observer pattern for state management. The store encapsulates core functions (`getState`, `dispatch`, `subscribe`), a reducer function for handling actions, and an initial state. Subscribers (listeners) are notified of every state change, which is logged to the console.
+
+### Key Components
+- **Store Creation**: A `createStore` function defines state, reducers, and listener subscriptions.
+- **Reducer Function**: The reducer function processes actions and returns the updated state.
+
+## Challenges and Solutions
+
+### Challenge
+- **Ensuring State Immutability**: One challenge was to make sure that each state update returned a new state object rather than modifying the existing state directly. This is crucial for predictable state management, especially in larger applications.
+
+### Solution
+- **Using Immutable State Updates in the Reducer**: To handle this, each action in the `tallyReducer` function returns a new state object instead of directly mutating the current state. This approach ensures that state changes are predictable and easier to debug, following functional programming principles and enabling proper listener notifications for each state update.
+
